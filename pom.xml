@@ -3,8 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.perfectomobile.quantum</groupId>
+    <groupId>com.quantum</groupId>
     <artifactId>quantum-runner</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -65,7 +64,6 @@
     </repositories>
 
     <dependencies>
-
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -78,18 +76,18 @@
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cukes.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>${cukes.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
             <artifactId>cucumber-testng</artifactId>
             <version>${cukes.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>testng</artifactId>
-                    <groupId>org.testng</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>info.cukes</groupId>
-                    <artifactId>cucumber-java</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
@@ -97,98 +95,24 @@
             <version>${cukes.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>${org.json.version}</version>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>${selenium.version}</version>
         </dependency>
         <dependency>
             <groupId>com.qmetry</groupId>
             <artifactId>qaf</artifactId>
             <version>${qaf.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>testng</artifactId>
-                    <groupId>org.testng</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>info.cukes</groupId>
-                    <artifactId>cucumber-java</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.perfectomobile.quantum</groupId>
+            <groupId>com.quantum</groupId>
             <artifactId>quantum-support</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.qmetry</groupId>
-            <artifactId>qaf-support</artifactId>
-            <version>2.1.9-RC2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.qmetry</groupId>
-                    <artifactId>qaf</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>testng</artifactId>
-                    <groupId>org.testng</groupId>
-                </exclusion>
-                <exclusion>
-                    <groupId>info.cukes</groupId>
-                    <artifactId>cucumber-java</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>1.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
-        </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.perfectomobile</groupId>
-            <artifactId>http-client</artifactId>
-            <version>${perfectomobile.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.perfectomobile</groupId>
-            <artifactId>intellij-connector</artifactId>
-            <version>${perfectomobile.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.perfectomobile</groupId>
-            <artifactId>pm-webdriver</artifactId>
-            <version>${perfectomobile.version}</version>
         </dependency>
         <dependency>
             <groupId>com.perfecto.reporting-sdk</groupId>
@@ -201,35 +125,14 @@
             <version>${reportium-sdk.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-remote-driver</artifactId>
-            <version>${selenium.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>testng</artifactId>
-                    <groupId>org.testng</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>4.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
-            <version>0.11</version>
+            <groupId>com.github.rholder</groupId>
+            <artifactId>guava-retrying</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.rholder</groupId>
-            <artifactId>guava-retrying</artifactId>
-            <version>2.0.0</version>
         </dependency>
     </dependencies>
 </project>

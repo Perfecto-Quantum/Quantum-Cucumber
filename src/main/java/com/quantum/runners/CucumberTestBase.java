@@ -1,9 +1,9 @@
-package com.perfectomobile.quantum.runners;
+package com.quantum.runners;
 
 
-import com.perfectomobile.quantum.utils.AnnotationsUtils;
-import com.perfectomobile.quantum.utils.ConfigurationUtils;
-import com.perfectomobile.quantum.utils.ConsoleUtils;
+import com.quantum.utils.AnnotationsUtils;
+import com.quantum.utils.ConfigurationUtils;
+import com.quantum.utils.ConsoleUtils;
 import com.qmetry.qaf.automation.testng.dataprovider.DataProviderFactory;
 import com.qmetry.qaf.automation.testng.dataprovider.QAFDataProvider;
 import com.qmetry.qaf.automation.ui.api.UiTestBase;
@@ -32,8 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.perfectomobile.quantum.utils.ConfigurationUtils.getBaseBundle;
-
 public abstract class CucumberTestBase<T extends UiTestBase<QAFExtendedWebDriver>> extends QuantumTestCase<T> {
 
     private TestNGCucumberRunner testNGCucumberRunner = null;
@@ -45,11 +43,11 @@ public abstract class CucumberTestBase<T extends UiTestBase<QAFExtendedWebDriver
     }
 
     public boolean isDryRun() {
-        return getBaseBundle().getBoolean("dryRun");
+        return ConfigurationUtils.getBaseBundle().getBoolean("dryRun");
     }
 
     public boolean isParallel() {
-        return getBaseBundle().getInt("global.datadriven.parallel", 0) == 1;
+        return ConfigurationUtils.getBaseBundle().getInt("global.datadriven.parallel", 0) == 1;
     }
 
     @BeforeSuite(alwaysRun = true)
@@ -67,7 +65,7 @@ public abstract class CucumberTestBase<T extends UiTestBase<QAFExtendedWebDriver
     }
 
     private static boolean isTestPerScenario() {
-        return "true".equals(getBaseBundle().getPropertyValue("testPerScenario"));
+        return "true".equals(ConfigurationUtils.getBaseBundle().getPropertyValue("testPerScenario"));
     }
 
     @Override
@@ -80,13 +78,13 @@ public abstract class CucumberTestBase<T extends UiTestBase<QAFExtendedWebDriver
     @Factory(dataProvider = "featureFactory")
     public CucumberTestBase(CucumberFeatureWrapper cucumberFeatureWrapper) {
         this.cucumberFeature = cucumberFeatureWrapper.getCucumberFeature();
-        getBaseBundle().addProperty("driver.capabilities.scriptName", getTestName());
+        ConfigurationUtils.getBaseBundle().addProperty("driver.capabilities.scriptName", getTestName());
     }
 
     @DataProvider(name = "featureFactory", parallel = true)
     public static Object[][] features(ITestContext testContext) throws ClassNotFoundException {
     	Map<String, String> params = testContext.getCurrentXmlTest().getAllParameters();
-        getBaseBundle().addAll(params);
+        ConfigurationUtils.getBaseBundle().addAll(params);
     	String tags = getParamValue(params, "tags", "");
     	String glue = getParamValue(params, "glue", "");
     	String features = getParamValue(params, "features", "");
@@ -121,7 +119,7 @@ public abstract class CucumberTestBase<T extends UiTestBase<QAFExtendedWebDriver
         String description = "!!NOT FOUND!!";
         try {
             description = cucumberFeature.getGherkinFeature().getDescription();
-            Map<String, String> dataParameters = StringUtil.toMap(StringUtil.parseCSV(description, getBaseBundle().getListDelimiter()), true);
+            Map<String, String> dataParameters = StringUtil.toMap(StringUtil.parseCSV(description, ConfigurationUtils.getBaseBundle().getListDelimiter()), true);
 
             if (dataParameters.isEmpty()) {
                 dataParameters.put("DATAFILE", "N/A");

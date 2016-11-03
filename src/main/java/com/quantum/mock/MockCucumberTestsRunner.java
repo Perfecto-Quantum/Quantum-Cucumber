@@ -1,9 +1,8 @@
-package com.perfectomobile.quantum.runners;
+package com.quantum.mock;
 
 
-import com.perfecto.reportium.WebDriverProvider;
+import com.quantum.runners.CucumberTestBase;
 import cucumber.api.testng.CucumberFeatureWrapper;
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Factory;
 
 /**
@@ -16,20 +15,15 @@ import org.testng.annotations.Factory;
  * 
  *
  */
-public class CucumberTestRunner extends CucumberTestBase<QuantumTestBase> implements WebDriverProvider {
+public class MockCucumberTestsRunner extends CucumberTestBase<MockTestBase> {
 
 	@Factory(dataProvider = "featureFactory")
-	public CucumberTestRunner(CucumberFeatureWrapper cucumberFeatureWrapper){
+	public MockCucumberTestsRunner(CucumberFeatureWrapper cucumberFeatureWrapper){
 		super(cucumberFeatureWrapper);
 	}
 
 	@Override
-	public QuantumTestBase getTestBase() {
-		return new QuantumTestBase();
-	}
-
-	@Override
-	public WebDriver getWebDriver() {
-		return getQAFDriver();
+	public MockTestBase getTestBase() {
+		return new MockTestBase();
 	}
 }

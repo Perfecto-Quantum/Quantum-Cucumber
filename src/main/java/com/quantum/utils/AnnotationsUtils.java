@@ -1,4 +1,4 @@
-package com.perfectomobile.quantum.utils;
+package com.quantum.utils;
 
 import cucumber.api.CucumberOptions;
 import org.apache.commons.lang.StringUtils;
@@ -22,7 +22,7 @@ public final class AnnotationsUtils {
     private static final Method Atomic_casAnnotationData;
     private static final Class<?> Atomic_class;
 	private static final String DEFAULT_TAGS = null;
-	public static final String DEFAULT_GLUE_PACKAGE = "com.perfectomobile.quantum.steps";
+	public static final String DEFAULT_GLUE_PACKAGE = "com.quantum.steps";
 	public static final String DEFAULT_FEATURES_FOLDER = "src/test/java/com/perfectomobile/quantum/features";
 	public static final String DEFAULT_PLUGINS = "cucumber.runtime.formatter.CucumberPrettyFormatter";
     public static final String DEFAULT_DRYRUN = "false";
@@ -37,7 +37,7 @@ public final class AnnotationsUtils {
 	private static final String PLUGIN_OPTION = "plugin";
 	private static final String DRY_RUN_OPTION = "dryRun";
     private static final String JUNIT_OPTION = "junit";
-    private static final String HOOKS_PACKAGE = "com.perfectomobile.quantum.hooks";
+    private static final String HOOKS_PACKAGE = "com.quantum.hooks";
 	
     static{
         // static initialization of necessary reflection Objects

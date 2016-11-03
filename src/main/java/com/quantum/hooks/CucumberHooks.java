@@ -1,7 +1,9 @@
-package com.perfectomobile.quantum.hooks;
+package com.quantum.hooks;
 
 import com.perfecto.reportium.client.ReportiumClient;
-import com.perfectomobile.quantum.utils.ConsoleUtils;
+import com.quantum.listerners.QuantumReportiumListener;
+import com.quantum.utils.ConsoleUtils;
+import com.quantum.utils.ConfigurationUtils;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.AfterStep;
@@ -9,13 +11,17 @@ import cucumber.api.java.Before;
 import cucumber.api.java.BeforeStep;
 import gherkin.formatter.model.Step;
 
-import static com.perfectomobile.quantum.listerners.QuantumReportiumListener.PERFECTO_REPORT_CLIENT;
-import static com.perfectomobile.quantum.utils.ConfigurationUtils.getBaseBundle;
-
 public class CucumberHooks {
 
     private Scenario scenario;
     private ReportiumClient reportiumClient;
+
+    public CucumberHooks() {
+        Object reportiumObject = ConfigurationUtils.getBaseBundle().getObject(QuantumReportiumListener.PERFECTO_REPORT_CLIENT);
+        if (reportiumObject != null && reportiumObject instanceof ReportiumClient) {
+            reportiumClient = ((ReportiumClient)reportiumObject);
+        }
+    }
 
     @Before
     public void setup(Scenario scenario) {
@@ -24,6 +30,7 @@ public class CucumberHooks {
         System.out.println();
         ConsoleUtils.printBlockRow(msg, ConsoleUtils.upper_block, 2);
         ConsoleUtils.logInfoBlocks(msg, 2);
+        printReportiumUrl();
         reportTestStep(msg);
     }
 
@@ -51,8 +58,7 @@ public class CucumberHooks {
     public void after(Scenario scenario) {
         String msg = "END SCENARIO: " + scenario.getName();
         reportTestStep(msg);
-        if (reportiumClient != null)
-            ConsoleUtils.logWarningBlocks("REPORTIUM URL: " + reportiumClient.getReportUrl().replace("[", "%5B").replace("]", "%5D"));
+        printReportiumUrl();
         ConsoleUtils.logInfoBlocks(msg, 2);
         ConsoleUtils.printBlockRow(msg, ConsoleUtils.lower_block, 2);
         System.out.println();
@@ -60,10 +66,12 @@ public class CucumberHooks {
 
     private void reportTestStep(String description) {
         // add step to the report
-        Object reportiumObject = getBaseBundle().getObject(PERFECTO_REPORT_CLIENT);
-        if (reportiumObject != null && reportiumObject instanceof ReportiumClient) {
-            reportiumClient = ((ReportiumClient)reportiumObject);
+        if (reportiumClient != null)
             reportiumClient.testStep(description);
-        }
+    }
+
+    private void printReportiumUrl(){
+        if (reportiumClient != null)
+            ConsoleUtils.logWarningBlocks("REPORTIUM URL: " + reportiumClient.getReportUrl().replace("[", "%5B").replace("]", "%5D"));
     }
 }
